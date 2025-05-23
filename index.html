@@ -159,76 +159,36 @@
       transform: scale(1.05);
     }
 
-    @keyframes buttonGlow {
-      0% { 
-        box-shadow: 4px 4px 0 #d63031, 8px 8px 0 rgba(0, 0, 0, 0.3), 0 0 0 rgba(255, 107, 107, 0);
-        transform: scale(1);
-      }
-      50% { 
-        box-shadow: 4px 4px 0 #d63031, 8px 8px 0 rgba(0, 0, 0, 0.3), 0 0 20px rgba(255, 107, 107, 0.6);
-        transform: scale(1.02);
-      }
-      100% { 
-        box-shadow: 4px 4px 0 #d63031, 8px 8px 0 rgba(0, 0, 0, 0.3), 0 0 0 rgba(255, 107, 107, 0);
-        transform: scale(1);
-      }
-    }
-
     @keyframes buttonPulse {
-      0%, 100% { transform: scale(1) rotate(0deg); }
-      25% { transform: scale(1.05) rotate(-1deg); }
-      50% { transform: scale(1.1) rotate(0deg); }
-      75% { transform: scale(1.05) rotate(1deg); }
-    }
-
-    @keyframes buttonShake {
-      0%, 100% { transform: translateX(0); }
-      25% { transform: translateX(-2px); }
-      75% { transform: translateX(2px); }
+      0% { transform: scale(1); }
+      50% { transform: scale(1.1); }
+      100% { transform: scale(1); }
     }
 
     .pixel-button {
-      background: linear-gradient(45deg, #ff6b6b, #ff8e8e);
+      background: #ff6b6b;
       color: #fff;
       border: none;
-      padding: 16px 32px;
+      padding: 12px 24px;
       font-family: 'Press Start 2P', monospace;
-      font-size: 14px;
+      font-size: 12px;
       cursor: pointer;
       position: relative;
       box-shadow: 4px 4px 0 #d63031, 8px 8px 0 rgba(0, 0, 0, 0.3);
-      transition: all 0.2s ease;
+      transition: all 0.1s ease;
       text-transform: uppercase;
-      overflow: hidden;
-      animation: buttonGlow 2s ease-in-out infinite;
-    }
-
-    .pixel-button::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: -100%;
-      width: 100%;
-      height: 100%;
-      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
-      transition: left 0.5s ease;
     }
 
     .pixel-button:hover {
-      background: linear-gradient(45deg, #fd79a8, #fdcb6e);
-      box-shadow: 6px 6px 0 #e84393, 12px 12px 0 rgba(0, 0, 0, 0.4), 0 0 25px rgba(253, 121, 168, 0.8);
-      transform: translate(-3px, -3px) scale(1.05);
-      animation: buttonPulse 0.4s ease infinite, buttonShake 0.1s ease infinite;
-    }
-
-    .pixel-button:hover::before {
-      left: 100%;
+      background: #fd79a8;
+      box-shadow: 4px 4px 0 #e84393, 8px 8px 0 rgba(0, 0, 0, 0.4);
+      transform: translate(-2px, -2px);
+      animation: buttonPulse 0.5s ease infinite;
     }
 
     .pixel-button:active {
-      transform: translate(4px, 4px) scale(0.98);
+      transform: translate(2px, 2px);
       box-shadow: 2px 2px 0 #d63031, 4px 4px 0 rgba(0, 0, 0, 0.3);
-      animation: none;
     }
 
     .pixel-audio-control {
@@ -268,81 +228,57 @@
       50% { transform: translateY(-10px); }
       100% { transform: translateY(0); }
     }
-
     .pixel-text {
       font-size: clamp(12px, 3vw, 16px);
       color: #87ceeb;
       text-align: center;
-      margin-bottom: 3.5rem;
-      text-shadow: 3px 3px 0 #1a1a2e;
+      margin-bottom: 3.5rem;  /* Aumentado de 2rem a 3.5rem */
+      text-shadow: 2px 2px 0 #1a1a2e;
       line-height: 1.8;
       letter-spacing: 1px;
       position: relative;
-      z-index: 2;
-      text-transform: uppercase;
-      font-weight: bold;
+      z-index: 2;  /* Asegura que el texto esté por encima */
+      text-transform: uppercase;  /* Hace el texto más visible */
+      font-weight: bold;  /* Hace el texto más visible */
+      text-shadow: 3px 3px 0 #1a1a2e;  /* Sombra más pronunciada */
     }
-
     .game-container {
-      display: none;
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(0,0,0,0.95);
-      z-index: 1000;
-      justify-content: center;
-      align-items: center;
-      flex-direction: column;
-    }
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0,0,0,0.9);
+        z-index: 1000;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+      }
 
-    #gameCanvas {
-      border: 4px solid #87ceeb;
-      background: #0a0a15;
-      image-rendering: pixelated;
-      box-shadow: 0 0 20px rgba(135, 206, 235, 0.5);
-    }
+      #gameCanvas {
+        border: 4px solid #87ceeb;
+        background: #1a1a2e;
+        image-rendering: pixelated;
+      }
 
-    .game-score {
-      color: #87ceeb;
-      font-family: 'Press Start 2P', monospace;
-      margin-top: 1rem;
-      font-size: 14px;
-      text-shadow: 2px 2px 0 #000;
-    }
+      .game-score {
+        color: #87ceeb;
+        font-family: 'Press Start 2P', monospace;
+        margin-top: 1rem;
+        font-size: 14px;
+      }
 
-    .game-info {
-      color: #ffd700;
-      font-family: 'Press Start 2P', monospace;
-      margin-bottom: 1rem;
-      font-size: 10px;
-      text-align: center;
-      line-height: 1.6;
-    }
-
-    .close-game {
-      background: #ff6b6b;
-      color: white;
-      border: none;
-      padding: 12px 24px;
-      font-family: 'Press Start 2P', monospace;
-      margin-top: 1rem;
-      cursor: pointer;
-      font-size: 12px;
-      box-shadow: 4px 4px 0 #d63031;
-      transition: all 0.1s ease;
-    }
-
-    .close-game:hover {
-      transform: translate(-2px, -2px);
-      box-shadow: 6px 6px 0 #d63031;
-    }
-
-    .close-game:active {
-      transform: translate(2px, 2px);
-      box-shadow: 2px 2px 0 #d63031;
-    }
+      .close-game {
+        background: #ff6b6b;
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        font-family: 'Press Start 2P', monospace;
+        margin-top: 1rem;
+        cursor: pointer;
+        font-size: 12px;
+      }
   </style>
 </head>
 <body>
@@ -358,15 +294,9 @@
     <div class="star" style="top: 55%; left: 50%;"></div>
     <div class="star" style="top: 75%; right: 15%;"></div>
   </div>
-
   <div class="game-container" id="gameContainer">
-    <div class="game-info">
-      USA LAS FLECHAS PARA MOVERTE<br>
-      ESQUIVA LOS METEORITOS<br>
-      ALCANZA 1000 PUNTOS PARA GANAR
-    </div>
-    <canvas id="gameCanvas" width="400" height="600"></canvas>
-    <div class="game-score">SCORE: <span id="score">0</span> | VIDAS: <span id="lives">3</span></div>
+    <canvas id="gameCanvas" width="320" height="480"></canvas>
+    <div class="game-score">SCORE: <span id="score">0</span></div>
     <button class="close-game" onclick="closeGame()">CERRAR</button>
   </div>
 
@@ -384,8 +314,9 @@
 
     <p class="pixel-text">Vamo al cine!!</p>
 
-    <button class="pixel-button" onclick="startGame()">🎟️ play</button>
+    <button class="pixel-button" onclick="showMovieInfo()">🎟️ play</button>
 
+    <!-- Nuevo GIF decorativo -->
     <img class="floating-gif" src="https://media4.giphy.com/media/v1.Y2lkPTc5MGI3NjExaTBweDNvaXFlaGIxcDllamE5bTMxeWllYm5hOHB2MjNmd2pjbjc5ciZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/WRLofcgZpbbtS/giphy.gif" alt="Stitch extra" />
   </div>
 
@@ -401,24 +332,20 @@
     const audio = document.getElementById('backgroundAudio');
     const audioButton = document.querySelector('.pixel-audio-control');
 
-    // Variables del juego
-    let gameRunning = false;
-    let canvas, ctx;
-    let player, meteors = [], score = 0, lives = 3;
-    let keys = {};
-    let gameWon = false;
+    // Establecer el volumen al 15%
+    audio.volume = 0.9;
 
-    audio.volume = 0.15;
-
+    // Array de canciones disponibles
     const canciones = [
       "https://dn720305.ca.archive.org/0/items/rem-losing-my-religion/REM%20-%20Losing%20My%20Religion.mp3",
-      "https://dn721205.ca.archive.org/0/items/Venezia_449/HombresG-Venezia.mp3"
+      "https://ia801802.us.archive.org/10/items/nirvana-heart-shaped-box/Nirvana%20-%20Heart-Shaped%20Box.mp3",
+      "https://ia600604.us.archive.org/2/items/HoraLocaLAICH2014CortaConIntro/te%20pintaron%20pajaritos%20en%20el%20aire.mp3"
     ];
 
+    // Seleccionar una canción aleatoria al cargar la página
     window.addEventListener('load', () => {
       const cancionAleatoria = canciones[Math.floor(Math.random() * canciones.length)];
       audio.src = cancionAleatoria;
-      initGame();
     });
 
     function toggleAudio() {
@@ -433,200 +360,6 @@
       }
     }
 
-    function initGame() {
-      canvas = document.getElementById('gameCanvas');
-      ctx = canvas.getContext('2d');
-      
-      // Inicializar jugador
-      player = {
-        x: canvas.width / 2 - 15,
-        y: canvas.height - 50,
-        width: 30,
-        height: 30,
-        speed: 5
-      };
-
-      // Event listeners para controles
-      document.addEventListener('keydown', (e) => {
-        keys[e.key] = true;
-      });
-
-      document.addEventListener('keyup', (e) => {
-        keys[e.key] = false;
-      });
-    }
-
-    function startGame() {
-      document.getElementById('gameContainer').style.display = 'flex';
-      gameRunning = true;
-      score = 0;
-      lives = 3;
-      meteors = [];
-      gameWon = false;
-      
-      player.x = canvas.width / 2 - 15;
-      player.y = canvas.height - 50;
-      
-      gameLoop();
-    }
-
-    function closeGame() {
-      document.getElementById('gameContainer').style.display = 'none';
-      gameRunning = false;
-    }
-
-    function gameLoop() {
-      if (!gameRunning) return;
-
-      // Limpiar canvas
-      ctx.fillStyle = '#0a0a15';
-      ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-      // Dibujar estrellas de fondo
-      drawStars();
-
-      // Mover jugador
-      if (keys['ArrowLeft'] && player.x > 0) {
-        player.x -= player.speed;
-      }
-      if (keys['ArrowRight'] && player.x < canvas.width - player.width) {
-        player.x += player.speed;
-      }
-      if (keys['ArrowUp'] && player.y > 0) {
-        player.y -= player.speed;
-      }
-      if (keys['ArrowDown'] && player.y < canvas.height - player.height) {
-        player.y += player.speed;
-      }
-
-      // Crear meteoritos
-      if (Math.random() < 0.03) {
-        meteors.push({
-          x: Math.random() * (canvas.width - 20),
-          y: -20,
-          width: 20 + Math.random() * 20,
-          height: 20 + Math.random() * 20,
-          speed: 2 + Math.random() * 3,
-          rotation: 0
-        });
-      }
-
-      // Mover y dibujar meteoritos
-      for (let i = meteors.length - 1; i >= 0; i--) {
-        const meteor = meteors[i];
-        meteor.y += meteor.speed;
-        meteor.rotation += 0.1;
-
-        // Dibujar meteorito
-        ctx.save();
-        ctx.translate(meteor.x + meteor.width/2, meteor.y + meteor.height/2);
-        ctx.rotate(meteor.rotation);
-        ctx.fillStyle = '#8B4513';
-        ctx.fillRect(-meteor.width/2, -meteor.height/2, meteor.width, meteor.height);
-        ctx.fillStyle = '#654321';
-        ctx.fillRect(-meteor.width/4, -meteor.height/4, meteor.width/2, meteor.height/2);
-        ctx.restore();
-
-        // Eliminar meteoritos fuera de pantalla
-        if (meteor.y > canvas.height) {
-          meteors.splice(i, 1);
-          score += 10;
-        }
-
-        // Colisión con jugador
-        if (meteor.x < player.x + player.width &&
-            meteor.x + meteor.width > player.x &&
-            meteor.y < player.y + player.height &&
-            meteor.y + meteor.height > player.y) {
-          meteors.splice(i, 1);
-          lives--;
-          
-          if (lives <= 0) {
-            gameOver();
-            return;
-          }
-        }
-      }
-
-      // Dibujar jugador (nave espacial)
-      drawPlayer();
-
-      // Actualizar puntuación
-      document.getElementById('score').textContent = score;
-      document.getElementById('lives').textContent = lives;
-
-      // Verificar victoria
-      if (score >= 1000 && !gameWon) {
-        gameWon = true;
-        victory();
-        return;
-      }
-
-      requestAnimationFrame(gameLoop);
-    }
-
-    function drawStars() {
-      ctx.fillStyle = '#ffd700';
-      for (let i = 0; i < 50; i++) {
-        const x = (i * 137) % canvas.width;
-        const y = (i * 71) % canvas.height;
-        ctx.fillRect(x, y, 2, 2);
-      }
-    }
-
-    function drawPlayer() {
-      // Dibujar nave espacial
-      ctx.fillStyle = '#87ceeb';
-      ctx.beginPath();
-      ctx.moveTo(player.x + player.width/2, player.y);
-      ctx.lineTo(player.x, player.y + player.height);
-      ctx.lineTo(player.x + player.width/4, player.y + player.height * 0.8);
-      ctx.lineTo(player.x + player.width * 0.75, player.y + player.height * 0.8);
-      ctx.lineTo(player.x + player.width, player.y + player.height);
-      ctx.closePath();
-      ctx.fill();
-
-      // Detalles de la nave
-      ctx.fillStyle = '#4169e1';
-      ctx.fillRect(player.x + player.width/2 - 3, player.y + 8, 6, 8);
-    }
-
-    function gameOver() {
-      gameRunning = false;
-      ctx.fillStyle = 'rgba(0,0,0,0.8)';
-      ctx.fillRect(0, 0, canvas.width, canvas.height);
-      
-      ctx.fillStyle = '#ff6b6b';
-      ctx.font = '20px "Press Start 2P"';
-      ctx.textAlign = 'center';
-      ctx.fillText('GAME OVER', canvas.width/2, canvas.height/2);
-      
-      ctx.fillStyle = '#87ceeb';
-      ctx.font = '12px "Press Start 2P"';
-      ctx.fillText('PUNTUACION: ' + score, canvas.width/2, canvas.height/2 + 40);
-    }
-
-    function victory() {
-      gameRunning = false;
-      ctx.fillStyle = 'rgba(0,0,0,0.8)';
-      ctx.fillRect(0, 0, canvas.width, canvas.height);
-      
-      ctx.fillStyle = '#00ff00';
-      ctx.font = '20px "Press Start 2P"';
-      ctx.textAlign = 'center';
-      ctx.fillText('VICTORIA!', canvas.width/2, canvas.height/2);
-      
-      ctx.fillStyle = '#ffd700';
-      ctx.font = '12px "Press Start 2P"';
-      ctx.fillText('NIVEL COMPLETADO', canvas.width/2, canvas.height/2 + 40);
-
-      // Mostrar ventana de reserva después de 2 segundos
-      setTimeout(() => {
-        closeGame();
-        showMovieInfo();
-      }, 2000);
-    }
-
     function showMovieInfo() {
       const modal = document.createElement('div');
       modal.style.cssText = `
@@ -635,71 +368,43 @@
         left: 0;
         width: 100%;
         height: 100%;
-        background: rgba(0,0,0,0.9);
+        background: rgba(0,0,0,0.8);
         display: flex;
         align-items: center;
         justify-content: center;
-        z-index: 1001;
+        z-index: 1000;
         font-family: 'Press Start 2P', monospace;
-        animation: modalFadeIn 0.5s ease;
       `;
 
       const content = document.createElement('div');
       content.style.cssText = `
-        background: linear-gradient(45deg, #2d4a22, #4a7c59);
-        padding: 30px;
-        box-shadow: inset 4px 4px 0 #4a7c59, inset -4px -4px 0 #1a2e15, 0 0 30px rgba(135, 206, 235, 0.5);
+        background: #2d4a22;
+        padding: 20px;
+        box-shadow: inset 4px 4px 0 #4a7c59, inset -4px -4px 0 #1a2e15;
         color: #87ceeb;
         text-align: center;
         font-size: 10px;
-        line-height: 2;
-        max-width: 350px;
-        border: 3px solid #87ceeb;
-        animation: contentPulse 2s ease-in-out infinite;
+        line-height: 1.8;
+        max-width: 300px;
+        border: 2px solid #87ceeb;
       `;
 
       content.innerHTML = `
-        🎬 ¡FELICIDADES! 🎟️<br><br>
-        HAS DESBLOQUEADO LA ENTRADA<br><br>
+        🎬 RESERVA LA ENTRADA 🎟️<br><br>
         LILO & STITCH<br>
         PIXEL CINEMA<br><br>
         FUNCION: DIGAME UN DIA<br>
         FECHA: 23/05/2030<br>
         SALA: NI IDEA, ME AVISAN XD<br><br>
-        <div style="font-size: 8px; color: #ffd700; margin: 15px 0;">
-          PUNTUACION FINAL: ${score} PUNTOS
-        </div>
+        <img src="resources/ruby.gif" 
+            alt="Stitch extra" 
+            style="width: 150px; margin: 15px 0;">
         <br>
         <button onclick="this.parentElement.parentElement.remove()" style="
-          background: linear-gradient(45deg, #ff6b6b, #fd79a8); 
-          color: white; 
-          padding: 12px 20px; 
-          border: none; 
-          margin-top: 15px; 
-          font-family: 'Press Start 2P';
-          font-size: 10px;
-          cursor: pointer;
-          box-shadow: 4px 4px 0 #d63031;
-          transition: all 0.1s ease;
-        " onmouseover="this.style.transform='translate(-2px,-2px)'; this.style.boxShadow='6px 6px 0 #d63031';" 
-           onmouseout="this.style.transform='translate(0,0)'; this.style.boxShadow='4px 4px 0 #d63031';">
-          CERRAR
+          background: #ff6b6b; color: white; padding: 10px; border: none; margin-top: 10px; font-family: 'Press Start 2P';">
+          Cerrar
         </button>
       `;
-
-      // Añadir animaciones CSS
-      const style = document.createElement('style');
-      style.textContent = `
-        @keyframes modalFadeIn {
-          from { opacity: 0; transform: scale(0.8); }
-          to { opacity: 1; transform: scale(1); }
-        }
-        @keyframes contentPulse {
-          0%, 100% { transform: scale(1); }
-          50% { transform: scale(1.02); }
-        }
-      `;
-      document.head.appendChild(style);
 
       modal.appendChild(content);
       document.body.appendChild(modal);
