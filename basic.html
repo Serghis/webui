@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Lilo & Stitch - Pixel Cinema</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      min-height: 100vh;
+      font-family: 'Press Start 2P', monospace;
+      background: #1a1a2e;
+      overflow-x: hidden;
+      image-rendering: pixelated;
+    }
+
+    .pixel-background {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background:
+        repeating-linear-gradient(0deg, #16213e 0px, #16213e 4px, #0f1419 4px, #0f1419 8px),
+        repeating-linear-gradient(90deg, #16213e 0px, #16213e 4px, #0f1419 4px, #0f1419 8px);
+      z-index: -2;
+      animation: pixelShift 8s linear infinite;
+    }
+
+    @keyframes pixelShift {
+      0% { background-position: 0 0, 0 0; }
+      100% { background-position: 8px 8px, 8px 8px; }
+    }
+
+    .stars {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+    }
+
+    .star {
+      position: absolute;
+      width: 4px;
+      height: 4px;
+      background: #ffd700;
+      box-shadow: 4px 0 0 #ffd700, -4px 0 0 #ffd700, 0 4px 0 #ffd700, 0 -4px 0 #ffd700;
+      animation: starTwinkle 2s ease-in-out infinite;
+    }
+
+    .star:nth-child(odd) {
+      animation-delay: 1s;
+    }
+
+    @keyframes starTwinkle {
+      0%, 100% { opacity: 0.3; }
+      50% { opacity: 1; }
+    }
+
+    .clouds {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 0;
+    }
+
+    .cloud {
+      position: absolute;
+      background: #e6e6fa;
+      opacity: 0.1;
+      animation: cloudMove 20s linear infinite;
+    }
+
+    .cloud1 {
+      width: 60px;
+      height: 20px;
+      top: 20%;
+      left: -60px;
+      clip-path: polygon(20% 100%, 0% 60%, 20% 40%, 40% 60%, 60% 40%, 80% 60%, 100% 40%, 100% 100%);
+    }
+
+    .cloud2 {
+      width: 80px;
+      height: 24px;
+      top: 40%;
+      left: -80px;
+      animation-delay: 10s;
+      clip-path: polygon(15% 100%, 0% 70%, 15% 50%, 35% 70%, 50% 50%, 70% 70%, 85% 50%, 100% 70%, 100% 100%);
+    }
+
+    @keyframes cloudMove {
+      0% { left: -100px; }
+      100% { left: calc(100% + 100px); }
+    }
+
+    .container {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      z-index: 10;
+      position: relative;
+    }
+
+    .pixel-frame {
+      position: relative;
+      width: 100%;
+      max-width: 500px;
+      aspect-ratio: 1;
+      background: #2d4a22;
+      padding: 16px;
+      margin-bottom: 2rem;
+      box-shadow: inset 4px 4px 0 #4a7c59, inset -4px -4px 0 #1a2e15, 8px 8px 0 rgba(0, 0, 0, 0.3);
+    }
+
+    .pixel-frame::before {
+      content: '';
+      position: absolute;
+      top: 8px;
+      left: 8px;
+      right: 8px;
+      bottom: 8px;
+      border: 2px solid #87ceeb;
+      background: #000;
+    }
+
+    .gif-container {
+      position: relative;
+      width: 100%;
+      height: calc(100% - 16px);
+      margin: 8px;
+      overflow: hidden;
+      background: #000;
+      border: 2px solid #87ceeb;
+    }
+
+    .gif-container img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      image-rendering: pixelated;
+    }
+
+    .pixel-text {
+      font-size: clamp(12px, 3vw, 16px);
+      color: #87ceeb;
+      text-align: center;
+      margin-bottom: 2rem;
+      text-shadow: 2px 2px 0 #1a1a2e;
+      line-height: 1.8;
+      letter-spacing: 1px;
+    }
+
+    .pixel-button {
+      background: #ff6b6b;
+      color: #fff;
+      border: none;
+      padding: 12px 24px;
+      font-family: 'Press Start 2P', monospace;
+      font-size: 12px;
+      cursor: pointer;
+      position: relative;
+      box-shadow: 4px 4px 0 #d63031, 8px 8px 0 rgba(0, 0, 0, 0.3);
+      transition: all 0.1s ease;
+      text-transform: uppercase;
+    }
+
+    .pixel-button:hover {
+      background: #fd79a8;
+      box-shadow: 4px 4px 0 #e84393, 8px 8px 0 rgba(0, 0, 0, 0.4);
+      transform: translate(-2px, -2px);
+    }
+
+    .pixel-button:active {
+      transform: translate(2px, 2px);
+      box-shadow: 2px 2px 0 #d63031, 4px 4px 0 rgba(0, 0, 0, 0.3);
+    }
+
+    .pixel-audio-control {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background: #00b894;
+      border: none;
+      width: 40px;
+      height: 40px;
+      font-size: 16px;
+      color: white;
+      cursor: pointer;
+      box-shadow: 4px 4px 0 #00a085, 6px 6px 0 rgba(0, 0, 0, 0.3);
+      transition: all 0.1s ease;
+      z-index: 100;
+    }
+
+    .pixel-audio-control:hover {
+      transform: translate(-2px, -2px);
+      box-shadow: 6px 6px 0 #00a085, 8px 8px 0 rgba(0, 0, 0, 0.4);
+    }
+
+    .pixel-audio-control:active {
+      transform: translate(2px, 2px);
+      box-shadow: 2px 2px 0 #00a085, 4px 4px 0 rgba(0, 0, 0, 0.3);
+    }
+
+    .floating-gif {
+      width: 150px;
+      margin-top: 2rem;
+      animation: floatY 3s ease-in-out infinite;
+    }
+
+    @keyframes floatY {
+      0% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+      100% { transform: translateY(0); }
+    }
+  </style>
+</head>
+<body>
+  <div class="pixel-background"></div>
+
+  <div class="stars">
+    <div class="star" style="top: 15%; left: 10%;"></div>
+    <div class="star" style="top: 25%; right: 20%;"></div>
+    <div class="star" style="top: 45%; left: 15%;"></div>
+    <div class="star" style="top: 65%; right: 25%;"></div>
+    <div class="star" style="top: 80%; left: 30%;"></div>
+    <div class="star" style="top: 35%; right: 40%;"></div>
+    <div class="star" style="top: 55%; left: 50%;"></div>
+    <div class="star" style="top: 75%; right: 15%;"></div>
+  </div>
+
+  <div class="clouds">
+    <div class="cloud cloud1"></div>
+    <div class="cloud cloud2"></div>
+  </div>
+
+  <div class="container">
+    <div class="pixel-frame">
+      <div class="gif-container">
+        <img src="https://media1.giphy.com/media/v1.Y2lkPTc5MGI3NjExejdsbHZqNnE2ajBienU1OGxmNWN1c2xrN3ZodnE0bmM2dzRqNzBvZiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/ZnnHMeC7iDSzC/giphy.gif" alt="Nuevo GIF" />
+      </div>
+    </div>
+
+    <p class="pixel-text">Vamo al cine</p>
+
+    <button class="pixel-button" onclick="showMovieInfo()">🎟️ play</button>
+
+    <!-- Nuevo GIF decorativo -->
+    <img class="floating-gif" src="https://media4.giphy.com/media/v1.Y2lkPTc5MGI3NjExaTBweDNvaXFlaGIxcDllamE5bTMxeWllYm5hOHB2MjNmd2pjbjc5ciZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/WRLofcgZpbbtS/giphy.gif" alt="Stitch extra" />
+  </div>
+
+  <audio id="backgroundAudio" loop>
+    <source src="https://dn720305.ca.archive.org/0/items/rem-losing-my-religion/REM%20-%20Losing%20My%20Religion.mp3" type="audio/mpeg" />
+    Tu navegador no soporta el elemento audio.
+  </audio>
+
+  <button class="pixel-audio-control" onclick="toggleAudio()" title="Música">♪</button>
+
+  <script>
+    let audioPlaying = false;
+    const audio = document.getElementById('backgroundAudio');
+    const audioButton = document.querySelector('.pixel-audio-control');
+
+    // Establecer el volumen al 15%
+    audio.volume = 0.15;
+
+    // Array de canciones disponibles
+    const canciones = [
+      "https://dn720305.ca.archive.org/0/items/rem-losing-my-religion/REM%20-%20Losing%20My%20Religion.mp3",
+      "https://dn721205.ca.archive.org/0/items/Venezia_449/HombresG-Venezia.mp3"
+    ];
+
+    // Seleccionar una canción aleatoria al cargar la página
+    window.addEventListener('load', () => {
+      const cancionAleatoria = canciones[Math.floor(Math.random() * canciones.length)];
+      audio.src = cancionAleatoria;
+    });
+
+    function toggleAudio() {
+      if (audioPlaying) {
+        audio.pause();
+        audioButton.textContent = '♫';
+        audioPlaying = false;
+      } else {
+        audio.play().catch(e => console.log('Error:', e));
+        audioButton.textContent = '♪';
+        audioPlaying = true;
+      }
+    }
+
+    function showMovieInfo() {
+      const modal = document.createElement('div');
+      modal.style.cssText = `
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0,0,0,0.8);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 1000;
+        font-family: 'Press Start 2P', monospace;
+      `;
+
+      const content = document.createElement('div');
+      content.style.cssText = `
+        background: #2d4a22;
+        padding: 20px;
+        box-shadow: inset 4px 4px 0 #4a7c59, inset -4px -4px 0 #1a2e15;
+        color: #87ceeb;
+        text-align: center;
+        font-size: 10px;
+        line-height: 1.8;
+        max-width: 300px;
+        border: 2px solid #87ceeb;
+      `;
+
+      content.innerHTML = `
+        🎬 RESERVA LA ENTRADA 🎟️<br><br>
+        LILO & STITCH<br>
+        PIXEL CINEMA<br><br>
+        FUNCION: 20:00<br>
+        FECHA: 23/05/2030<br>
+        SALA: NI IDEA, ME AVISAN XD<br><br>
+        <img src="https://media1.giphy.com/media/v1.Y2lkPTc5MGI3NjExZG1tZTBxM2IxOXNncnAzeWM2OTVmY3I2MDJlYjdqMGM0NW1yampxNiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/DckRZPgEmnmuY/giphy.gif" 
+            alt="Stitch extra" 
+            style="width: 150px; margin: 15px 0;">
+        <br>
+        <button onclick="this.parentElement.parentElement.remove()" style="
+          background: #ff6b6b; color: white; padding: 10px; border: none; margin-top: 10px; font-family: 'Press Start 2P';">
+          Cerrar
+        </button>
+      `;
+
+      modal.appendChild(content);
+      document.body.appendChild(modal);
+    }
+  </script>
+</body>
+</html>
