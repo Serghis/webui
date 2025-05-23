@@ -152,16 +152,17 @@
       height: 100%;
       object-fit: cover;
       image-rendering: pixelated;
+      transition: transform 0.3s ease;
     }
 
-    .pixel-text {
-      font-size: clamp(12px, 3vw, 16px);
-      color: #87ceeb;
-      text-align: center;
-      margin-bottom: 2rem;
-      text-shadow: 2px 2px 0 #1a1a2e;
-      line-height: 1.8;
-      letter-spacing: 1px;
+    .gif-container img:hover {
+      transform: scale(1.05);
+    }
+
+    @keyframes buttonPulse {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.1); }
+      100% { transform: scale(1); }
     }
 
     .pixel-button {
@@ -182,6 +183,7 @@
       background: #fd79a8;
       box-shadow: 4px 4px 0 #e84393, 8px 8px 0 rgba(0, 0, 0, 0.4);
       transform: translate(-2px, -2px);
+      animation: buttonPulse 0.5s ease infinite;
     }
 
     .pixel-button:active {
@@ -226,6 +228,57 @@
       50% { transform: translateY(-10px); }
       100% { transform: translateY(0); }
     }
+    .pixel-text {
+      font-size: clamp(12px, 3vw, 16px);
+      color: #87ceeb;
+      text-align: center;
+      margin-bottom: 3.5rem;  /* Aumentado de 2rem a 3.5rem */
+      text-shadow: 2px 2px 0 #1a1a2e;
+      line-height: 1.8;
+      letter-spacing: 1px;
+      position: relative;
+      z-index: 2;  /* Asegura que el texto esté por encima */
+      text-transform: uppercase;  /* Hace el texto más visible */
+      font-weight: bold;  /* Hace el texto más visible */
+      text-shadow: 3px 3px 0 #1a1a2e;  /* Sombra más pronunciada */
+    }
+    .game-container {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0,0,0,0.9);
+        z-index: 1000;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+      }
+
+      #gameCanvas {
+        border: 4px solid #87ceeb;
+        background: #1a1a2e;
+        image-rendering: pixelated;
+      }
+
+      .game-score {
+        color: #87ceeb;
+        font-family: 'Press Start 2P', monospace;
+        margin-top: 1rem;
+        font-size: 14px;
+      }
+
+      .close-game {
+        background: #ff6b6b;
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        font-family: 'Press Start 2P', monospace;
+        margin-top: 1rem;
+        cursor: pointer;
+        font-size: 12px;
+      }
   </style>
 </head>
 <body>
@@ -240,6 +293,11 @@
     <div class="star" style="top: 35%; right: 40%;"></div>
     <div class="star" style="top: 55%; left: 50%;"></div>
     <div class="star" style="top: 75%; right: 15%;"></div>
+  </div>
+  <div class="game-container" id="gameContainer">
+    <canvas id="gameCanvas" width="320" height="480"></canvas>
+    <div class="game-score">SCORE: <span id="score">0</span></div>
+    <button class="close-game" onclick="closeGame()">CERRAR</button>
   </div>
 
   <div class="clouds">
@@ -334,10 +392,10 @@
         🎬 RESERVA LA ENTRADA 🎟️<br><br>
         LILO & STITCH<br>
         PIXEL CINEMA<br><br>
-        FUNCION: 20:00<br>
+        FUNCION: DIGAME UN DIA<br>
         FECHA: 23/05/2030<br>
         SALA: NI IDEA, ME AVISAN XD<br><br>
-        <img src="https://media1.giphy.com/media/v1.Y2lkPTc5MGI3NjExZG1tZTBxM2IxOXNncnAzeWM2OTVmY3I2MDJlYjdqMGM0NW1yampxNiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/DckRZPgEmnmuY/giphy.gif" 
+        <img src="resources/ruby.gif" 
             alt="Stitch extra" 
             style="width: 150px; margin: 15px 0;">
         <br>
